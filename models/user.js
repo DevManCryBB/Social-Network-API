@@ -1,15 +1,44 @@
-// thoughtText
-// String
-// Required
-// Must be between 1 and 280 characters
-// createdAt
-// Date
-// Set default value to the current timestamp
-// Use a getter method to format the timestamp on query
-// username (The user that created this thought)
-// String
-// Required
-// reactions (These are like replies)
-// Array of nested documents created with the reactionSchema
-// Schema Settings
-// Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
+const { Schema, model } = require('mongoose')
+
+const userSchema = new Schema(
+{
+    username: {
+        type: string,
+        unique: true,
+        required: true,
+        trim: true
+    },
+    email: {
+        type: string,
+        unique: true,
+        required: true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    },
+    thoughts: [
+        {
+        type: Schema.Types.ObjectId,
+        ref: 'Thought',
+        },
+    ],
+    friends: [
+        {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        },
+    ]
+},
+    {
+        toJSON: {
+            virtuals: true,
+          },
+          id: false,
+    }
+)
+
+userSchema.virtual('friendCount').get(function () {
+    return this.friends.length;
+  });
+
+  const User = model('user', userSchema);
+
+module.exports = User;
