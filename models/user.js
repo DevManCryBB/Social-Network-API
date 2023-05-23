@@ -11,3 +11,5 @@
 // Required
 // reactions (These are like replies)
 // Array of nested documents created with the reactionSchema
+// Schema Settings
+// Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
