@@ -1,10 +1,10 @@
-const { User } = require("../models/User");
+const { User } = require("../models");
 const { thoughtSchema } = require("../models/Thought");
 
 module.exports = {
   getUsers(req, res) {
     User.find()
-      .then((users) => res.json(users))
+      .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
   // Get a single user
