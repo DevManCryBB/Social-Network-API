@@ -13,11 +13,7 @@ const {
 router.route('/').get(getThought).post(createThought);
 
 // /api/thought/:thoughtId
-router.route('/:thoughtId').get(getSingleThought);
-
-router.route('/:thoughtId').put(updateThought);
-  
-router.route('/:thoughtId').delete(deleteThought);
+router.route('/:thoughtId').get(getSingleThought).put(updateThought).delete(deleteThought);
 
 // /api/applications/:thoughtId/reactions
 router.route('/:thoughtId/reactions').post(addReaction);
